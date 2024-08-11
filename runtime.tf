@@ -10,16 +10,17 @@ locals {
   }
 
   common_env_vars = {
-    "NAMESPACE"          = var.service_namespace
-    "NAME"               = var.service_name
-    "VERSION"            = var.service_version
-    "ADDRESS"            = ":${var.service_port}"
+    "NAMESPACE" = var.service_namespace
+    "NAME"      = var.service_name
+    "VERSION"   = var.service_version
+    "ADDRESS"   = ":${var.service_port}"
   }
 }
 
 resource "kubernetes_service_account_v1" "service_account" {
   metadata {
-    name = var.service_name
+    namespace = var.service_namespace
+    name      = var.service_name
   }
 }
 
@@ -59,8 +60,9 @@ resource "kubernetes_cluster_role_binding_v1" "cluster_role_binding" {
   }
 
   subject {
-    kind = "ServiceAccount"
-    name = var.service_name
+    kind      = "ServiceAccount"
+    namespace = var.service_namespace
+    name      = var.service_name
   }
 }
 
