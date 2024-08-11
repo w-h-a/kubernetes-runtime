@@ -10,8 +10,6 @@ locals {
   }
 
   common_env_vars = {
-    "RESOURCE_NAMESPACE" = var.resource_namespace
-    "APP_NAMESPACE"      = var.app_namespace
     "NAMESPACE"          = var.service_namespace
     "NAME"               = var.service_name
     "VERSION"            = var.service_version
