@@ -24,9 +24,10 @@ resource "kubernetes_service_account_v1" "service_account" {
   }
 }
 
-resource "kubernetes_cluster_role_v1" "cluster_role" {
+resource "kubernetes_role_v1" "role" {
   metadata {
-    name = var.service_name
+    namespace = var.service_namespace
+    name      = var.service_name
   }
 
   rule {
@@ -48,14 +49,15 @@ resource "kubernetes_cluster_role_v1" "cluster_role" {
   }
 }
 
-resource "kubernetes_cluster_role_binding_v1" "cluster_role_binding" {
+resource "kubernetes_role_binding_v1" "role_binding" {
   metadata {
-    name = var.service_name
+    namespace = var.service_namespace
+    name      = var.service_name
   }
 
   role_ref {
     api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
+    kind      = "Role"
     name      = var.service_name
   }
 
